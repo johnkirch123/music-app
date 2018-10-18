@@ -5,14 +5,7 @@ const Context = React.createContext();
 
 export class Provider extends Component {
   state = {
-    track_list: [
-      {
-        track: { track_name: "abc" }
-      },
-      {
-        track: { track_name: "123" }
-      }
-    ],
+    track_list: [],
     heading: "Top 10 Tracks"
   };
 
@@ -24,7 +17,10 @@ export class Provider extends Component {
           process.env.REACT_APP_MM_KEY
         }`
       )
-      .then(res => console.log(res.data))
+      .then(res => {
+        // console.log(res.data);
+        this.setState({ track_list: res.data.message.body.track_list });
+      })
       .catch(err => console.log(err));
   }
 
